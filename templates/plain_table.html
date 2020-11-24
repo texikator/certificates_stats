@@ -1,0 +1,60 @@
+﻿<!doctype html>
+<html>
+<title>Certificates data</title>
+<head>
+    <style type="text/css">
+        .normal {background: #99ff99;
+
+        }
+        .achtung {background:#ffcccc;
+        }
+        .warning {background: #ffbf80;}
+
+        .ptext {font-size: 10pt; padding: 5px;}
+    </style>
+</head>
+<body>
+    <table border='0' cellspacing='1' cellpadding='1'>
+        <tr> 
+            <td>&nbsp;</td>
+            <td class="ptext">Host</td>
+            <td class="ptext">not-after</td>
+            <td class="ptext">not-before</td>
+            <td class="ptext">days left</td>
+            <td class='ptext'>issuer</td>
+            <td class='ptext'>subject</td>
+            <td class='ptext'>info</td>
+            
+        </tr>
+{% for item in data %}
+        <tr>
+
+            <td>&nbsp;</td>
+            <td class="ptext {{item.level}}">{{ item.host}}</td>
+            <td class="ptext {{item.level}}">
+             
+                {% if item.not_after %}
+                    {{ item.not_after.strftime('%d.%m.%Y %H:%M') }}
+                {% else %}
+                    &nbsp;
+                {% endif %}
+            
+            
+            </td>
+            <td class="ptext {{item.level}}">
+                {% if item.not_before %}
+                     {{ item.not_before.strftime('%d.%m.%Y %H:%M') }}</td>
+                {% else %}
+                    &nbsp;
+                {% endif %}
+             
+         
+            <td class="ptext {{item.level}}">{{ item.delta.days}}</td>
+            <td class='ptext {{item.level}}'>{{item.issuer}}</td> 
+            <td class='ptext {{item.level}}'>{{item.subject}}</td>
+            <td class='ptext {{item.level}}'>{{item.info}}</td>
+        </tr>
+{% endfor %}
+    </table>
+</body>
+</html>
